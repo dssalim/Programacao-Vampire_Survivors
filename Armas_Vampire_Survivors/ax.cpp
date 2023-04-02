@@ -36,7 +36,7 @@ Axe::~Axe( )
 }
 
 
-int Axe::getBase_damage( ) const
+double Axe::getBase_damage( ) const
 {
     return base_damage;
 }

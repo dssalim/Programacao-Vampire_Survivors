@@ -9,7 +9,7 @@ public:
     Axe(double base_damage=20 ,int rarity=100, int number=1, int level=1);
     ~Axe();
 
-    int getBase_damage( ) const;
+    double getBase_damage( ) const;
     int getLevel( ) const;
     int getRarity () const;
     int getNumber () const;
