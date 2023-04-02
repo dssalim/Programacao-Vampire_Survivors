@@ -64,7 +64,7 @@ int Axe::getNumber( ) const
 void Axe::setBase_damage(double base_damage){    
     if ((base_damage*Axe::getLevel() > 0) && (base_damage*Axe::getLevel()<=180)){
     this -> base_damage = base_damage*Axe::getLevel();}
-    else{ this -> base_damage = 5*Axe::getLevel();}
+    else{ this -> base_damage = 20*Axe::getLevel();}
     return;
     }
 
