@@ -5,25 +5,26 @@
 class Axe
 {
 public:
-    Axe(int,int,int,double);
-    Axe(double base_damage=20 ,int rarity=100, int number=1, int level=1);
+    Axe (int, int,int);
+    Axe (double=20 ,int =100,  int =1, int =1);
     ~Axe();
 
+    void throwAxe( ) const;
     double getBase_damage( ) const;
     int getLevel( ) const;
     int getRarity () const;
-    int getNumber () const;
+    int getNumber_projectiles () const;
     void setLevel( int );
     void setBase_damage( double);
-    void setNumber (int );
+    void setNumber_projectiles (int );
     void setRarity(int );
-    void throwAxe( ) const;
+
 
 private:
 
     double base_damage;
     int level;
     int rarity;
-    int number;
+    int number_projectiles;
 
 };
