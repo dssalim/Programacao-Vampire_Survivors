@@ -4,31 +4,25 @@ using std::cout;
 #include "ax.h"
 
 
-Axe::Axe( int rarity , int number_projectiles,int level)
+Axe::Axe(int level)
 {
 
-cout << "Inicializando Axe.\n";
+    cout << "Inicializando Axe.\n";
 
-setLevel(level);
-
-setNumber_projectiles(number_projectiles);
-
-setRarity(rarity);
-
-setBase_damage(base_damage);
-
+    setLevel(level);
+    setNumber_projectiles(number_projectiles);
+    setRarity(rarity);
+    setBase_damage(base_damage);
 }
 
 
-Axe::Axe(double base_damage, int rarity , int number_projectiles,int level){
+Axe::Axe(int level,  int rarity , double base_damage, int number_projectiles)
+{
 
-setLevel(level);
-
-setNumber_projectiles(number_projectiles);
-
-setRarity(rarity);
-
-setBase_damage(base_damage);
+    setLevel(level);
+    setNumber_projectiles(number_projectiles);
+    setRarity(rarity);
+    setBase_damage(base_damage);
 
 
 }
@@ -77,24 +71,23 @@ int Axe::getNumber_projectiles( ) const
 
 
 
-void Axe::setBase_damage(double base_damage){ 
+void Axe::setBase_damage(double nbase_damage){ 
+    if ((nbase_damage*getLevel() > 0) && (nbase_damage*getLevel()<=180)){
+        this -> base_damage = nbase_damage*getLevel();
+        return;}
+    this -> base_damage = 20*getLevel();}
 
-    if ((base_damage*getLevel() > 0) && (base_damage*getLevel()<=180)){
-    this -> base_damage = base_damage*getLevel();}
-    else{ this -> base_damage = 20*getLevel();}
-    return;
-    }
 
 void Axe::setNumber_projectiles (int number_projectiles){
 
     if (number_projectiles*getLevel()> 0 && number_projectiles*getLevel() <= 8){
-    this -> number_projectiles = number_projectiles*getLevel();
+        this -> number_projectiles = number_projectiles*getLevel();
+        return;
     }
-    else if (number_projectiles*getLevel() > 8){this -> number_projectiles =8 ;}
-    else{this -> number_projectiles = 1;}
-return;}
 
-void Axe::setLevel(int level){
+    this -> number_projectiles = 1;}
+
+void Axe::setLevel(int level=1){
 
     if ( level>= 1 && level< 9){
 
@@ -103,29 +96,29 @@ void Axe::setLevel(int level){
 
         return;
     }
-    else if (level>=9){
+    if (level>=9){
 
         this -> level = 8;
 
         return;
     }
-    else{
 
-        this -> level = 1;
+    this -> level = 1;
 
-        return;
+
     }
 
-}
 
-void Axe::setRarity(int rarity){
-    int newrarity;
-    newrarity = rarity;
-    if (newrarity>10 && newrarity<=100){
-        this -> rarity = newrarity;
+
+void Axe::setRarity(int nrarity){
+
+    if (nrarity>=10 && nrarity<=100){
+        nrarity=nrarity;
     }
-    else if(newrarity>100 ) {this -> rarity =100;}
-    else {this -> rarity =10;}
+    if (nrarity>100 || nrarity<10){
+        nrarity=100;}
 
-}
+    this -> rarity = nrarity;}
+
+
 

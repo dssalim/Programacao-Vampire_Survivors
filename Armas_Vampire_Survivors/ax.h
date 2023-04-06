@@ -1,18 +1,19 @@
 #ifndef AXE_H
 #define AXE_H
-#endif
+
 
 class Axe
 {
 public:
-    Axe (int, int,int);
-    Axe (double=20 ,int =100,  int =1, int =1);
+    Axe (int=1);
+    Axe (int , int ,double=20, int =1);
     ~Axe();
 
     void throwAxe( ) const;
-    double getBase_damage( ) const;
+
     int getLevel( ) const;
     int getRarity () const;
+    double getBase_damage( ) const;
     int getNumber_projectiles () const;
     void setLevel( int );
     void setBase_damage( double);
@@ -22,9 +23,11 @@ public:
 
 private:
 
-    double base_damage;
+
     int level;
     int rarity;
+    double base_damage;
     int number_projectiles;
-
+    
 };
+#endif
