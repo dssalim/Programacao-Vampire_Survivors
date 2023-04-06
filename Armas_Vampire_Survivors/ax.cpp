@@ -71,9 +71,10 @@ int Axe::getNumber_projectiles( ) const
 
 
 
-void Axe::setBase_damage(double nbase_damage){ 
-    if ((nbase_damage*getLevel() > 0) && (nbase_damage*getLevel()<=180)){
-        this -> base_damage = nbase_damage*getLevel();
+void Axe::setBase_damage(double base_damage=20){ 
+    double temp=base_damage;
+    if ((temp*getLevel() > 0) && (temp*getLevel()<=180)){
+        this -> base_damage = temp*getLevel();
         return;}
     this -> base_damage = 20*getLevel();}
 

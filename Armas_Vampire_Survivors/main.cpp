@@ -48,8 +48,5 @@ int main() {
     Axe new_custom_axe(lvl, rar);
     new_custom_axe.throwAxe();
 
-    cout<<"teste 8\n";
-    Axe another_teste_axe;
-    another_teste_axe.throwAxe();
     return 0;
 }
