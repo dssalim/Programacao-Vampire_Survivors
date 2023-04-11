@@ -113,22 +113,22 @@ cout << "Testando Grade: " << axe.gradingAxe();
 
 // Testando Objetos Const
     cout<<"\nteste 13\n";
-    const Axe constaxe(7,50);
+    const Axe TROOAXE(7,50);
     cout<<'\n';
-    constaxe.gradeAxe();
+    TROOAXE.gradeAxe();
     cout<<'\n';
 
 // Testando Objetos Non Const 
     cout<<"\nteste 14\n";
-    Axe nonconstaxe(6,70);
+    Axe fireaxe(6,70);
     cout<<'\n';
-    nonconstaxe.gradeAxe();
+    fireaxe.gradeAxe();
     cout<<'\n';
     
 // Testando Métodos Static
     cout << "\nteste 15\n";
     cout << "Numero de Objetos Axe Criados: " << Axe::getNumberAxes() <<"\n";
     cout << "Destes o numero de cópias é: " <<Axe::getNumCopies()<<"\n";
-     
+
     return 0;
 }

@@ -42,7 +42,6 @@ public:
     void setRarity(int );
     void setAxeName(string );
     void setNameChanges();
-
 // const string &
 
     void changeAxeName(const string &);
@@ -74,6 +73,8 @@ private:
 // Atributos const Static
     static const int NUMGRADES=4;
     static const string GRADEAXE[NUMGRADES];
+
+
 
 };
 #endif
