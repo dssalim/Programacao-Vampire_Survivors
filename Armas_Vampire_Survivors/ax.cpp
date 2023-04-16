@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdlib>
 using std::cout;
 
 #include "ax.h"
@@ -10,15 +11,20 @@ int Axe::numcopies=0;
 //atributos const static
 const string Axe::GRADEAXE[NUMGRADES] = {"S","A","B","C"};
 
+// array const static
+
+const float Axe::FIXED_BONUS_DAMAGE[NUMGRADES] = {1.5,1.2,1,0.9};
+
 // Métodos Static
 int Axe::getNumberAxes(){
     return numberaxes;
 }
 int Axe::getNumCopies(){return numcopies;}
 
+
 // Construtores com atributos Const
 Axe::Axe(int level):
-    axename("no name"),namechanges(0),graded(false),MAXCHANGES(1),MAXRARITY(100),MINDAMAGE(20)
+    axename("no name"),namechanges(0),graded(false),MAXCHANGES(5),MAXRARITY(100),MINDAMAGE(20)
 {
 
         cout << "Inicializando Axe.\n";
@@ -29,13 +35,12 @@ Axe::Axe(int level):
         setBase_damage(base_damage);
         numberaxes++;
 
-
 }
 
 
 
-Axe::Axe(int level,   int rarity , double base_damage, int number_projectiles, string name, int MAXCHANGES):
-   axename(name), namechanges(0), graded(false),MAXCHANGES(MAXCHANGES), MAXRARITY(100),MINDAMAGE(20)
+Axe::Axe(int level,   int rarity , double base_damage, int number_projectiles, string name):
+   axename(name), namechanges(0), graded(false),MAXCHANGES(5), MAXRARITY(100),MINDAMAGE(20)
 {
 
     setLevel(level);
@@ -46,8 +51,6 @@ Axe::Axe(int level,   int rarity , double base_damage, int number_projectiles, s
 
 
 }
-
-
 
 // Construtor de cópia
 Axe::Axe (const Axe & another ):
@@ -77,7 +80,7 @@ void Axe::throwAxe( ) const
     cout << "Nome do Machado: " <<getAxeName()<<'\n';
 
 }
-
+// Métodos para gerar a Nota do Machado
 string Axe::gradingAxe()const
 {
     double total;
@@ -95,16 +98,15 @@ string Axe::gradingAxe()const
 
 }
 
+// Métodos para gerar nota de objetos const
 void Axe::gradeAxe(bool graded) const{
     if (!graded){return;}
 
     cout<<"A nota do seu machado é: \n"<<gradingAxe()<<'\n';
 
-
-
 }
 
-
+// Métodos para Gerar a nota de Objetos non Const
 void Axe::gradeAxe(bool graded){
     this -> graded = graded;
     if (!this->graded){return;}
@@ -114,16 +116,79 @@ void Axe::gradeAxe(bool graded){
 
 
 }
-
+// Método changeAxeName alterado para verificar se o nome já foi usado.
 void Axe::changeAxeName (const string &nname ){
-
-    if(getNameChanges()<=getMAXCHANGES()){
+    if (namechanges==0){
         setAxeName(nname);
-        setNameChanges();
         return;
+    }
+    if (namechanges>0){
+        bool teste=false;
+        for (int i =0; i<=namechanges;i++){
+            if(nname==previousAxeNames[i] || nname==axename){
+            cout<<"o nome " << nname <<" já foi usado\n";
+            teste=true;
+            return;
+            }
         }
+
+        if(namechanges<=getMAXCHANGES() && teste==false){
+            setAxeName(nname);
+            return;
+        }
+ 
+    }
+} 
+
+// Método com while para verificar o bonus do machado de acordo com a nota
+
+float Axe::checkbonus(){
+    int contador=0;
+    string grade = gradingAxe();
+
+    while(grade != GRADEAXE[contador]){
+        contador++;
     }
 
+    return FIXED_BONUS_DAMAGE[contador];
+}
+
+// Calculo dano
+float Axe::calculate_damage(){
+    
+    float final_damage = getBase_damage()*checkbonus();
+    return final_damage;
+
+}
+
+// Simulador de batalha usando for e while para criar dummies
+
+void Axe::simulate_battle(int numdummies){
+
+    for (int i=0;i<numdummies;i++){
+        float temp_dummy= rand() % 50 + 300;
+        cout << "\nO hp do dummy  "<< i+1 <<" é de:"<<temp_dummy;
+        while(temp_dummy>0){ 
+            cout<<"\nDano causado ao dummy: "<< calculate_damage();
+            temp_dummy -= calculate_damage();
+            if( temp_dummy>0){cout<<"\nHp atual do dummy: " << temp_dummy;}
+            cout<<"\nHp atual do dummy: 0 ";
+        }
+        cout << "\nDummy derrotado\n";
+    }
+}
+
+// imprimir nomes anteriores usando for
+
+void Axe::printPreviousName(){
+    cout << "Nomes anteriores:\n";
+    cout << previousAxeNames[2];
+    for(int i = 0; i<namechanges; i++ ){
+        cout << previousAxeNames[i]<<'\n';
+    }
+}
+
+// métodos get 
 
 double Axe::getBase_damage( ) const
 {
@@ -149,9 +214,7 @@ string Axe::getAxeName() const{
     return axename;
 }
 
-int Axe::getNameChanges()const{
-    return namechanges;
-}
+
 
 // Métodos Get Const
 
@@ -167,6 +230,7 @@ double Axe::getMINDAMAGE() const{
 int Axe::getMAXCHANGES() const{
     return MAXCHANGES;
 }
+
 
 // As formulas para calculo dos atributos dependendem do level da arma
 
@@ -209,9 +273,7 @@ void Axe::setLevel(int level=1){
     this -> level = 1;
 
 
-    }
-
-
+}
 
 void Axe::setRarity(int nrarity){
 
@@ -221,15 +283,24 @@ void Axe::setRarity(int nrarity){
     if (nrarity>getMAXRARITY() || nrarity<10){
         nrarity=getMAXRARITY();}
 
-    this -> rarity = nrarity;}
-
-
-
-void Axe::setAxeName (string nname){
-    this -> axename=nname;
+    this -> rarity = nrarity;
 }
 
-void Axe::setNameChanges(){
-    this -> namechanges +=1;
+
+// Método setAxeName alterado para salvar os nomes em um array
+void Axe::setAxeName (string axename){
+
+    if( namechanges ==  0 )
+    {   
+        this->axename = axename;
+        namechanges++;
+        return;
+    }
+    if( namechanges <  MAXNUMCHANGES ){
+        previousAxeNames[ namechanges-1] = this->axename;
+        namechanges++;
+        this->axename = axename;}
+    
 }
+
 

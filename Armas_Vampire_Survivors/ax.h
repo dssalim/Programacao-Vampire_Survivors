@@ -3,11 +3,12 @@
 #include <string>
 using std::string;
 
+
 class Axe
 {
 public:
     Axe (int=1);
-    Axe (int , int ,double=20, int =1, string="no name", int = 5);
+    Axe (int , int ,double=20, int =1, string="no name");
 
 // construtor de cópia
     Axe (const Axe &);
@@ -23,29 +24,43 @@ public:
     void gradeAxe(bool=true) const;
     void gradeAxe(bool=true);
 
+// const string & usando for
+
+    void changeAxeName(const string &);
+
+// Métodos Array que usam array e while
+    float checkbonus();
+
+// Métodos de calculo de dano
+    float calculate_damage(); 
+
+// Simulação de Batalha usando for e while
+    void simulate_battle(int);
+
+// Método com for
+    void printPreviousName();
+
+
+
 // Métodos Gets
     int getLevel( ) const;
     int getRarity () const;
     double getBase_damage( ) const;
     int getNumber_projectiles () const;
     string getAxeName() const;
-    int getNameChanges() const;
 // Métodos Get dos atributos const
     int getMAXCHANGES() const;
     double getMINDAMAGE() const;
     int getMAXRARITY() const;
 
+
 // Métodos Set
-    void setLevel( int );
+    void setLevel( int );  
     void setBase_damage( double);
     void setNumber_projectiles (int );
     void setRarity(int );
+// Método setAxe modificado para salvar nomes anteriores
     void setAxeName(string );
-    void setNameChanges();
-// const string &
-
-    void changeAxeName(const string &);
-
 
 private:
 
@@ -74,7 +89,10 @@ private:
     static const int NUMGRADES=4;
     static const string GRADEAXE[NUMGRADES];
 
+// Arrays
 
-
+    const static float FIXED_BONUS_DAMAGE[NUMGRADES];
+    const static int MAXNUMCHANGES=3;
+    string previousAxeNames[MAXNUMCHANGES];
 };
 #endif
