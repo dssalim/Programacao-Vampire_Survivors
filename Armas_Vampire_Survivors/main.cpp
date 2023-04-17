@@ -190,11 +190,7 @@ cout << "Testando Grade: " << axe.gradingAxe();
     cout<< "TESTE 19\n";
 // Deletando conteudo do objeto
     delete fireaxePtr;
-    cout<<"Mostrando o objeto endereço do objeto deletado"<<'\n';
-    cout<<fireaxePtr<<'\n';
-    cout<<"Mostrando o conteudo do objeto deletado"<<'\n';
-    fireaxePtr->throwAxe();
-    cout<<fireaxePtr<<'\n';
+    fireaxePtr=0;
     cout<<'\n';
     cout<<"Teste do Objeto anterior anotheraxe \n";
     anotheraxe.throwAxe();
@@ -206,9 +202,7 @@ cout << "Testando Grade: " << axe.gradingAxe();
 // Deletando 
     cout<<'\n';
     delete fireaxePtr;
-    cout<<fireaxePtr<<'\n';
 // Igualando a 0
     fireaxePtr=0;
-    cout<<fireaxePtr<<'\n';
     return 0;
 }
