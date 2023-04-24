@@ -265,6 +265,11 @@ cout << "Testando Grade: " << axe.gradingAxe();
     cout<<'\n';
     cout << anotheraxe.calculate_damage()<<'\n';
 
+    for (auto i =0; i<drops.size();i++){
+        delete  drops[i];
+        drops[i] =0;
+        drops.pop_back();
+    }
 
 // TesteMap
     cout<< "============================================================================\n";
