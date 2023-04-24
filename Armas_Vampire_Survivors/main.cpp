@@ -3,6 +3,8 @@
 
 using std::string;
 using std::cout;
+using std::iterator;
+using std::map;
 
 int main() {
 
@@ -144,7 +146,7 @@ cout << "Testando Grade: " << axe.gradingAxe();
     cout<< "=========================================================================\n";
     cout<< "TESTE 15\n";
     cout << "Numero de Objetos Axe Criados: " << Axe::getNumberAxes() <<"\n";
-    cout << "Destes o numero de cópias é: " <<Axe::getNumCopies()<<"\n";
+    cout << "Destes o numero de cópias é: " << Axe::getNumCopies() <<"\n";
  
 // Testando PreviousNames e Arrays
 
@@ -192,17 +194,92 @@ cout << "Testando Grade: " << axe.gradingAxe();
     delete fireaxePtr;
     fireaxePtr=0;
     cout<<'\n';
-    cout<<"Teste do Objeto anterior anotheraxe \n";
-    anotheraxe.throwAxe();
+
+
+// [ATVIDADE 4]
+// teste map
+
+    cout<< "============================================================================\n";
+    cout<< "TESTE 20\n";
+// Comparando saída do método GradeAxe com Bonusmap
+
+    anotheraxe.gradeAxe();
+    cout<< "bonus map > " << anotheraxe.checkbonusmap()<<'\n';
+
+
+// Teste de print de nomes anteriores ajustado
+    cout<< "============================================================================\n";
+    cout<< "TESTE 21\n";
+
+    anotheraxe.printPreviousName();
+        
+// Alocação dinâmica de Memória no SetNumBuffs adição de de valores por meio de um for
+    cout<< "============================================================================\n";
+    cout<< "TESTE 22\n";
+    anotheraxe.setNumBuffs(8);
+    vector <string* > drops;
+    drops.push_back(new string ("trash"));
+    drops.push_back(new string ("goldenegg"));
+    drops.push_back(new string ("silveregg"));
+    drops.push_back(new string ("fourleafclover"));
+    drops.push_back(new string ("goldenclover"));
+    drops.push_back(new string ("silveregg"));
+    drops.push_back(new string ("fourleafclover"));
+    drops.push_back(new string ("goldenclover"));
+    
+    for (auto i=0; i<drops.size(); i++){
+        anotheraxe.saveBuffs(*drops[i]);
+    }
+    
+    cout <<"Checando os valores salvos: " <<anotheraxe.calculateBuffs();
+    cout <<'\n';
+//  Numero maximo de buffs
+    cout<< "============================================================================\n";
+    cout<< "TESTE 24\n";
+    
+    cout << anotheraxe.calculate_damage()<<'\n';
+
+
+
+// Teste do novo método ChangeAxe Name;
+    cout<< "============================================================================\n";
+    cout<< "TESTE 23\n";
+    Axe testepranome;
+    testepranome.changeAxeName("teste1");
+    testepranome.changeAxeName("teste3");
+    testepranome.changeAxeName("teste5");
+    testepranome.throwAxe();
+    testepranome.printPreviousName();
+
+
+
+
+
+// Testando 
+    cout <<"Bonus Anterior: " <<anotheraxe.calculateBuffs()<<'\n';
+    drops.push_back(new string ("goldenegg"));
+    anotheraxe.saveBuffs(*drops[drops.size()-1]);
+    drops.push_back(new string ("goldenegg"));
+    anotheraxe.saveBuffs(*drops[drops.size()-1]);
+    cout << "bonus novo : "<<anotheraxe.calculateBuffs()<<'\n';//teste utiliza uma função com MAP para calculo
     cout<<'\n';
-    cout<<"Teste do Objeto realocado com construtor de cópia \n";
-// Usando construtor de cópia para criar novo objeto
-    fireaxePtr = new Axe(anotheraxe) ;
-    fireaxePtr ->throwAxe();
-// Deletando 
-    cout<<'\n';
-    delete fireaxePtr;
-// Igualando a 0
-    fireaxePtr=0;
+    cout << anotheraxe.calculate_damage()<<'\n';
+
+
+// TesteMap
+    cout<< "============================================================================\n";
+    cout<< "TESTE 24\n";
+    anotheraxe.showPosBonus();
+
+
+// Teste construtor de cópia atualizado
+    cout<< "============================================================================\n";
+    cout<< "TESTE 25\n";
+    cout<<"Teste pra teste de cópia"<<'\n';
+
+    Axe testepracopia(anotheraxe);
+    testepracopia.printPreviousName();
+
+
     return 0;
 }

@@ -2,7 +2,10 @@
 #define AXE_H
 #include <string>
 using std::string;
-
+#include <vector>
+using std::vector;
+#include <map>
+using std::map;
 
 class Axe
 {
@@ -26,19 +29,30 @@ public:
 
 // const string & usando for
 
-    void changeAxeName(const string &);
+    void changeAxeName(const string &); //Método alterado atividade 4
 
 // Métodos Array que usam array e while
     float checkbonus();
 
 // Métodos de calculo de dano
-    float calculate_damage(); 
+    float calculate_damage(); //Método alterado atividade 4
 
 // Simulação de Batalha usando for e while
     void simulate_battle(int);
 
 // Método com for
-    void printPreviousName();
+    void printPreviousName();//Método alterado atividade 4
+
+// [ATIVIDADE 4]
+    void showPosBonus() const;
+    void createMapBonus(); 
+    float checkbonusmap() ; 
+    void changeAxeNameVec(const string &) ; 
+    void saveBuffs(const string &);
+    float checkeachBuff(const string &)const;
+    bool checkNameVec(const string &) const;
+    float calculateBuffs() const;
+    void LastStageBuffs (int);
 
 
 
@@ -61,6 +75,14 @@ public:
     void setRarity(int );
 // Método setAxe modificado para salvar nomes anteriores
     void setAxeName(string );
+
+// [ATIVIDADE 4]
+    void setAxeBuffs();
+    void setNumBuffs(int);
+
+
+
+
 
 private:
 
@@ -92,7 +114,26 @@ private:
 // Arrays
 
     const static float FIXED_BONUS_DAMAGE[NUMGRADES];
-    const static int MAXNUMCHANGES=3;
-    string previousAxeNames[MAXNUMCHANGES];
+
+
+// [ATIVIDADE 4]
+
+// Vector
+    vector < string *> found_buffs; // vetor de buffs
+    vector < string *> previous_axe_names; //vetor de map
+    vector < float *> previous_stage_bonus; //vector de bonus
+// Map
+    map <string, double> axe_found_buffs; // map dos buffs 
+    map <string, float> map_bonus_damage; // map de bonus/grade
+
+// Auxiliares
+    int *numbuffsPtr; //aumenta a alocaçao de buffs
+    int numbuffs; //quantidade de buffs cadastradas
+    int completedstages; //Histórico dos leveis anteriores completos
+    int sizebuffs; // tamanho do vetor de buffs
+    float *previous_stage_bonusPtr; //bonus do ultimo estágio
+// [ATIVIDADE 4]
+// Método privado
+    void AllocInBuffs(int); 
 };
 #endif
