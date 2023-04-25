@@ -338,6 +338,7 @@ void Axe::saveBuffs(const string &buff){
         previous_stage_bonusPtr = previous_stage_bonus[previous_stage_bonus.size() - 1];
 // Pop_back nos valores anteriores do vetor
         for(int i=0; i<numbuffs; i++){
+            delete found_buffs[i];
             found_buffs.pop_back();
         }
 //metodo saveBuffs chamado novamente para incrementar o vetor found_buffs 
