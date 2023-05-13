@@ -101,7 +101,8 @@ Axe::Axe (const Axe & another ):
             this -> numbuffsPtr[i] = another.numbuffsPtr[i];
         }
         setNumBuffs(another.numbuffs); 
-        this -> found_buffs.resize(another.found_buffs.size());
+
+        this -> found_buffs.resize(another.found_buffs.size());   
         for (auto i = 0; i <another.found_buffs.size(); i++ ){
             this -> found_buffs[i] = another.found_buffs[i];
         }
@@ -117,6 +118,9 @@ Axe::Axe (const Axe & another ):
         for (auto i = 0; i <another.previous_stage_bonus.size(); i++ ){
              this -> previous_stage_bonus[i] = another.previous_stage_bonus[i];
         }
+
+        previous_stage_bonusPtr = 0;
+
         createMapBonus();
         setAxeBuffs();    
            
@@ -129,18 +133,21 @@ Axe::Axe (const Axe & another ):
 Axe::~Axe( )
 {  
     // // [ATIVIDADE 4]
-    delete [] previous_stage_bonusPtr;
-    delete [] numbuffsPtr;
+        
 
     //  deletando conteudo do ponteiro
-    for (auto i = 0; i<previous_axe_names.size(); i++)
-        delete this->previous_axe_names[i];
-    for (auto i = 0; i<found_buffs.size(); i++)
-        delete this->found_buffs[i];
-    for (auto i = 0; i<previous_stage_bonus.size(); i++)
+   
+    for (int i = 0; i<previous_stage_bonus.size(); i++)
         delete this->previous_stage_bonus[i];
+    delete [] previous_stage_bonusPtr;
+    delete [] numbuffsPtr;
+    for (int i = 0; i<previous_axe_names.size(); i++)
+        delete this->previous_axe_names[i];
+    for (int i = 0; i<found_buffs.size(); i++)
+        delete this->found_buffs[i];
 
 }
+
 
 
 // Throw Axe foi alterado para exibir o nome
@@ -578,5 +585,12 @@ void Axe::LastStageBuffs (int numbuffs) {
  }
 
 
-
+ostream &operator<<(ostream &out, const Axe &current ){
+    out<<"================================\n";
+    out<<"Mostrando Atributos do Machado: \n";
+    out<<"Dano base: " << current.base_damage<<'\n';
+    out<<"Nível: "<< current.level<<'\n';
+    out<<"Nome: "<< current.axename<<'\n';
+    return out;
+}
 

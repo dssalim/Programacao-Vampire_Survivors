@@ -1,5 +1,7 @@
 #ifndef AXE_H
 #define AXE_H
+#include <iostream>
+using std::ostream;
 #include <string>
 using std::string;
 #include <vector>
@@ -9,6 +11,7 @@ using std::map;
 
 class Axe
 {
+    friend ostream &operator<<(ostream &, const Axe &);
 public:
     Axe (int=1);
     Axe (int , int ,double=20, int =1, string="no name");
