@@ -333,11 +333,24 @@ cout<<hellaxe;
     cout<<teste2.get_unique_level()<<'\n';
     Candelabrador teste3(teste);
     cout<<teste3.get_unique_level()<<'\n';
-    teste.printdata();
     teste.set_data(14,05,2023);
     cout<<'\n';
-    teste.printdata();
     cout<<teste;
+    cout<<teste2;
+    cout<<(teste==teste2);
+    cout<<'\n';
+    cout<<(teste==teste3);
+    cout<<'\n';
+    cout<<(teste!=teste2);
+    cout<<'\n';
+    cout<<(teste!=teste3);
+    
+    // Sobrecarga atribuição
+    teste2=teste;
+    cout<<'\n';
+    cout<<teste2;
+    cout<<'\n';
+    cout<<!teste2;
 
     return 0;
 }

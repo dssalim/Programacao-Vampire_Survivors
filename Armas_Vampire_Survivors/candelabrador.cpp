@@ -13,26 +13,33 @@ const double  Candelabrador::ELEMENT_BONUS[NUM_ELEMENT]= {1,1.1,1.1,1.2,1.5};
 
 Candelabrador::Candelabrador(int level):type_element("Neutral"){
     set_unique(level);
+    last_played_ptr = 0;
+    daily_play_bonus = 0;
     set_data();
     createmapelement();
 }
 Candelabrador::Candelabrador(string type_element){
     set_unique(1);
+    last_played_ptr = 0;
+    daily_play_bonus = 0;
     set_data();
     createmapelement();
+    set_element(type_element);
 }
 
 Candelabrador::Candelabrador(const Candelabrador & old_one):type_element(old_one.type_element){
     set_unique(old_one.get_unique_level());
+    last_played_ptr = 0;
+    daily_play_bonus = 0;
     set_data();
     createmapelement();
 }
 
 
 Candelabrador::~Candelabrador(){
-    for (auto i=0; i<dates.size();i++)
+    delete [] last_played_ptr;
+    for (auto i=0; i<dates.size()-1;i++) 
         delete this -> dates[i];
-
 };
 
 void Candelabrador::set_unique(int level){
@@ -55,7 +62,7 @@ void Candelabrador::set_unique(int level){
 }
 
 void Candelabrador::set_element(string element){
-    if (checkelement(element)==true){
+    if (checkelement(element)==false){
         element = ELEMENTS[1];
     }
     this->type_element=element;
@@ -68,6 +75,19 @@ int Candelabrador::get_unique_level() const{
 
 double Candelabrador::get_unique_bonus() const{
     return unique.bonus;
+}
+
+string Candelabrador::get_element() const{
+    return type_element;
+}
+
+double Candelabrador::get_element_bonus() const{
+    for(auto itr =map_elemet.begin(); itr!=map_elemet.end();++itr){
+    if (this->type_element == itr->first){
+            return itr->second;
+    }
+}
+    return 0;
 }
 
 void Candelabrador::createmapelement(){
@@ -85,18 +105,6 @@ bool Candelabrador::checkelement(string element){
     return false;
 }
 
-void Candelabrador::set_data(int dia, int mes, int ano){
-    Data currentDate(dia, mes, ano);
-    this -> currentDate = currentDate;
-    this -> dates.push_back(new Data (currentDate));
-
-}
-
-void Candelabrador::printdata() const{
-    for(auto i =0; i<dates.size();i++)
-        dates[i] -> print();
-
-}
 
 ostream &operator<<(ostream &out, const Candelabrador &cande){
     out<<"=================================\n";
@@ -106,5 +114,83 @@ ostream &operator<<(ostream &out, const Candelabrador &cande){
     out<<"\n";
     out<<"Bonus: ";
     out<<cande.unique.bonus;
+    out<<"\n";
+    out<<"Element: ";
+    out<<cande.type_element;
+    out<<"\n";
+    out<<"Element Bonus: ";
+    out<<cande.get_element_bonus();
+    out<<"\n";
+    out<<"Last time you played: ";
+    cande.last_played_ptr->print();
+    out<<"\n";
+    out<<"=================================\n";
+
     return out;
+}
+
+// Candelabrador &operator==(Candelabrador &cande_a, Candelabrador &cande_b){
+//     if (cande_a.unique.level == cande_b.unique.level){
+//         std::cout<<"Objetos com leveis iguais\n";
+//     }
+//    if (cande_a.unique.level > cande_b.unique.level){
+//         std::cout<<"Primeiro objeto da Igualdade com level maior\n";
+//         std::cout<<"Alterando nível do segundo objeto\n";
+//         cande_b.set_unique(cande_a.unique.level);
+//         std::cout<<"Nível alterado do segundo objeto\n";
+//         std::cout<<"Mostrando  segundo Objeto\n";
+//         std::cout<<cande_b;
+
+//     }
+//     if (cande_a.unique.level <cande_b.unique.level){
+//         std::cout<<"Segundo objeto da Igualdade com level maior\n";
+//         cande_a.set_unique(cande_b.unique.level);
+//         std::cout<<"Nível alterado do primeiro objeto\n";
+//         std::cout<<"Mostrando  primeiro Objeto\n";
+//         std::cout<<cande_a;
+
+//     }
+
+// };
+
+
+bool operator==( const Candelabrador &cande_a,const Candelabrador &cande_b){
+   return cande_a.get_unique_level()==cande_b.get_unique_level()  && cande_a.get_element()==cande_b.get_element();
+    
+}
+
+bool operator!=( const Candelabrador &cande_a,const Candelabrador &cande_b){
+   return cande_a.get_unique_level()!=cande_b.get_unique_level()  || cande_a.get_element()!=cande_b.get_element();
+}
+
+void Candelabrador::operator=( const Candelabrador &cande_b){
+
+    this->set_unique(cande_b.get_unique_level());
+    this->set_element(cande_b.get_element());
+
+}
+int operator!( const Candelabrador &cande){
+    int lvl=1;   
+    if (cande.unique.level<8){
+        lvl=8;
+        return lvl;}
+    if(cande.unique.level==8){
+        return lvl;
+    }
+    return 0;
+}
+
+
+void Candelabrador::set_data(int dia, int mes, int ano){
+    Data currentDate(dia, mes, ano);
+    this -> currentDate = currentDate;
+    save_date(currentDate);
+
+}
+
+void Candelabrador::save_date(Data data){
+    this -> dates.push_back(new Data (currentDate));
+    last_played_ptr = new Data ;
+    last_played_ptr = dates[dates.size()-1];
+    daily_play_bonus;
 }
