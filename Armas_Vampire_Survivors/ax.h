@@ -9,6 +9,7 @@ using std::vector;
 #include <map>
 using std::map;
 #include"candelabrador.h"
+#include"character.h"
 
 class Axe
 {
@@ -24,6 +25,7 @@ public:
 
 // construtor de cópia
     Axe (const Axe &);
+    Character myCharacter;
     ~Axe();
 
 // Métodos Static

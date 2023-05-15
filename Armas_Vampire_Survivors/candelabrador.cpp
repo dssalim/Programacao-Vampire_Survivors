@@ -196,5 +196,5 @@ void Candelabrador::save_date(Data data){
     this -> dates.push_back(new Data (currentDate));
     last_played_ptr = new Data ;
     last_played_ptr = dates[dates.size()-1];
-    daily_play_bonus;
+    daily_play_bonus++;
 }

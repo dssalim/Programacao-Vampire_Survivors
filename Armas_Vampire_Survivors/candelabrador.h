@@ -42,8 +42,7 @@ void createmapelement();
 private:
     struct unique {  int level; 
     double bonus; 
-};
-    unique unique;
+}unique;
     const static int NUM_ELEMENT=5;
     const static string ELEMENTS[NUM_ELEMENT];
     const static double ELEMENT_BONUS[NUM_ELEMENT];

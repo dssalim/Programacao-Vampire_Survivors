@@ -82,13 +82,17 @@ Axe::Axe(int level):
         setBase_damage(base_damage);
         createMapBonus();
         setAxeBuffs();
-        myCandelabrador = new Candelabrador(level);
+
         previous_stage_bonusPtr = 0; 
         numbuffsPtr=0;
         numbuffs=5;
         completedstages=0;
         sizebuffs=0;
         numberaxes++;
+// [Atividade 5]
+
+        myCandelabrador = new Candelabrador(level);
+        myCharacter = Character(1);
 
 
 }
@@ -108,14 +112,16 @@ Axe::Axe(int level,   int rarity , double base_damage, int number_projectiles, s
         setBase_damage(base_damage);
         createMapBonus();
         setAxeBuffs();
-        myCandelabrador = new Candelabrador(level);
         previous_stage_bonusPtr = 0;    
         numbuffsPtr=0;
         numbuffs=5;
         completedstages=0;
         sizebuffs=0;    
         numberaxes++;
+// [Atividade 5]
 
+        myCandelabrador = new Candelabrador(level);
+        myCharacter = Character(1);
 
 }
 
@@ -143,15 +149,12 @@ Axe::Axe (const Axe & another ):
         }
         setNumBuffs(another.numbuffs); 
 
-        this -> found_buffs.resize(another.found_buffs.size());   
         for (auto i = 0; i <another.found_buffs.size(); i++ ){
-            this -> found_buffs[i] = another.found_buffs[i];
+            this -> found_buffs.push_back(new string( *another.found_buffs[i]));
         }
 
-        this -> previous_axe_names.resize(another.previous_axe_names.size());
-
         for (auto i = 0; i <another.previous_axe_names.size(); i++ ){
-             this -> previous_axe_names[i] = another.previous_axe_names[i];
+             this -> previous_axe_names.push_back(new string(*another.previous_axe_names[i]));
         }
 
         this -> previous_stage_bonus.resize(another.previous_stage_bonus.size());
@@ -161,14 +164,16 @@ Axe::Axe (const Axe & another ):
         }
 
         previous_stage_bonusPtr = 0;
-        this-> myCandelabrador = another.myCandelabrador;
+
         createMapBonus();
         setAxeBuffs();    
            
         numberaxes++;
         numcopies++;
-
-}
+// [Atividade 5]
+        this-> myCandelabrador =  new Candelabrador(*another.myCandelabrador);
+        myCharacter = Character(another.myCharacter);
+}  
 
 
 Axe::~Axe( )
@@ -317,7 +322,7 @@ float Axe::calculate_damage(){
     float bonusprevious = 1;
     if(previous_stage_bonus.size()>0){
     bonusprevious += *previous_stage_bonusPtr;}
-    float final_damage = (getBase_damage()*checkbonus()*(1+calculateBuffs())*bonusprevious*(this->myCandelabrador->get_element_bonus())) + (this->myCandelabrador->get_unique_bonus());
+    float final_damage = (getBase_damage()*checkbonus()*(1+calculateBuffs())*bonusprevious*(this->myCandelabrador->get_element_bonus())) + (this->myCandelabrador->get_unique_bonus()) + myCharacter.GetUniqueAttack();
     return final_damage;
 
 }

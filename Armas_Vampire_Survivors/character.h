@@ -1,36 +1,42 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
+#include <ostream>
+using std::ostream;
 #include <string>
 using std::string;
 #include <vector>
 using std::vector;
-#include <map>
-using std::map;
 
-class character
+
+class Character
 {
+    friend ostream &operator<<(ostream &, const Character &);
+    friend bool operator==( const Character &,const Character &);
+    friend bool operator!=(const Character &,const Character &);
+    friend int operator!( const Character &);
+    friend void CopyCharac(Character&, const Character&);
+    friend void MaxLevel(Character&);
 public:
-    character();
-    ~character();
-
-
-
+    void operator=(const Character &);
+    Character(int=1);
+    Character(string);
+    Character(const Character &);
+    ~Character();
+    void SetUnique(int=1);
+    void ChangeCharacName(const string&);
+    double GetUniqueAttack() const;
 
 private:
-    double life; //vida do personagem
-    int movimentation; //quantidade de células movimentadas
-    double speed; //tempo necessário para trocar de célula
-    double delay; // tempo necessário para repetir o ataque
-    int defense; //defesa do personagem
-    struct unique { double bonus_life;
-    int bonus_movimentation;
-    double bonus_speed;
-    double bonus_delay;
-    int bonus_defense;};
-    struct position{
-        int cord_x;
-        int cord_y;
-    }
+    struct unique{
+    int level;
+    double attack;
+    int exp;
+    }unique;
+    string character_name;
+    vector<string *> previous_character_name;
+    void SetCharacterName(string);
+    void SaveCharacterNames(const string&);
 };
+
 
 #endif
