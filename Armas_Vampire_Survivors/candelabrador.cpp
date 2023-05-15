@@ -9,8 +9,58 @@ using std::iterator;
 const string Candelabrador::ELEMENTS[NUM_ELEMENT] = {"Neutral","Fire","Ice","Earth","Light"};
 const double  Candelabrador::ELEMENT_BONUS[NUM_ELEMENT]= {1,1.1,1.1,1.2,1.5};
 
+ostream &operator<<(ostream &out, const Candelabrador &cande){
+    out<<"=================================\n";
+    out<<"Mostrando atributos do Candelabro:\n";
+    out<<"Level: ";
+    out<<cande.unique.level;
+    out<<"\n";
+    out<<"Bonus: ";
+    out<<cande.unique.bonus;
+    out<<"\n";
+    out<<"Element: ";
+    out<<cande.type_element;
+    out<<"\n";
+    out<<"Element Bonus: ";
+    out<<cande.get_element_bonus();
+    out<<"\n";
+    out<<"Last time you played: ";
+    cande.last_played_ptr->print();
+    out<<"\n";
+    out<<"=================================\n";
+
+    return out;
+}
 
 
+bool operator==( const Candelabrador &cande_a,const Candelabrador &cande_b){
+   return cande_a.get_unique_level()==cande_b.get_unique_level()  && cande_a.get_element()==cande_b.get_element();
+    
+}
+
+bool operator!=( const Candelabrador &cande_a,const Candelabrador &cande_b){
+   return cande_a.get_unique_level()!=cande_b.get_unique_level()  || cande_a.get_element()!=cande_b.get_element();
+}
+
+
+
+int operator!( const Candelabrador &cande){
+    int lvl=1;   
+    if (cande.unique.level<8){
+        lvl=8;
+        return lvl;}
+    if(cande.unique.level==8){
+        return lvl;
+    }
+    return 0;
+}
+
+void Candelabrador::operator=( const Candelabrador &cande_b){
+
+    this->set_unique(cande_b.get_unique_level());
+    this->set_element(cande_b.get_element());
+
+}
 Candelabrador::Candelabrador(int level):type_element("Neutral"){
     set_unique(level);
     last_played_ptr = 0;
@@ -48,12 +98,12 @@ void Candelabrador::set_unique(int level){
         this -> unique.bonus = level*5;
         return;
     }
-    if (level<5){
+    if (level>5){
         this ->unique.level = 5;
         this ->unique.bonus = unique.level*5;
         return;
     }
-    if (level>1){
+    if (level<1){
         this ->unique.level = 1;
         this ->unique.bonus = unique.level*5;
         return;
@@ -106,28 +156,6 @@ bool Candelabrador::checkelement(string element){
 }
 
 
-ostream &operator<<(ostream &out, const Candelabrador &cande){
-    out<<"=================================\n";
-    out<<"Mostrando atributos do Candelabro:\n";
-    out<<"Level: ";
-    out<<cande.unique.level;
-    out<<"\n";
-    out<<"Bonus: ";
-    out<<cande.unique.bonus;
-    out<<"\n";
-    out<<"Element: ";
-    out<<cande.type_element;
-    out<<"\n";
-    out<<"Element Bonus: ";
-    out<<cande.get_element_bonus();
-    out<<"\n";
-    out<<"Last time you played: ";
-    cande.last_played_ptr->print();
-    out<<"\n";
-    out<<"=================================\n";
-
-    return out;
-}
 
 // Candelabrador &operator==(Candelabrador &cande_a, Candelabrador &cande_b){
 //     if (cande_a.unique.level == cande_b.unique.level){
@@ -154,31 +182,7 @@ ostream &operator<<(ostream &out, const Candelabrador &cande){
 // };
 
 
-bool operator==( const Candelabrador &cande_a,const Candelabrador &cande_b){
-   return cande_a.get_unique_level()==cande_b.get_unique_level()  && cande_a.get_element()==cande_b.get_element();
-    
-}
 
-bool operator!=( const Candelabrador &cande_a,const Candelabrador &cande_b){
-   return cande_a.get_unique_level()!=cande_b.get_unique_level()  || cande_a.get_element()!=cande_b.get_element();
-}
-
-void Candelabrador::operator=( const Candelabrador &cande_b){
-
-    this->set_unique(cande_b.get_unique_level());
-    this->set_element(cande_b.get_element());
-
-}
-int operator!( const Candelabrador &cande){
-    int lvl=1;   
-    if (cande.unique.level<8){
-        lvl=8;
-        return lvl;}
-    if(cande.unique.level==8){
-        return lvl;
-    }
-    return 0;
-}
 
 
 void Candelabrador::set_data(int dia, int mes, int ano){

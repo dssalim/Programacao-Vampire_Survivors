@@ -20,7 +20,46 @@ const string Axe::GRADEAXE[NUMGRADES] = {"S","A","B","C"};
 
 const float Axe::FIXED_BONUS_DAMAGE[NUMGRADES] = {1.5,1.2,1,0.9};
 
+// [Atividade 5]
+// Sobrecargas
+ostream &operator<<(ostream &out, const Axe &current ){
+    out<<"================================\n";
+    out<<"Mostrando Atributos do Machado: \n";
+    out<<"Dano base: " << current.base_damage<<'\n';
+    out<<"Nível: "<< current.level<<'\n';
+    out<<"Nome: "<< current.axename<<'\n';
+    out<< *current.myCandelabrador;
+    return out;
+}
 
+
+bool operator==( const Axe &axe_a,const Axe &axe_b){
+    if (axe_a.axename == axe_b.axename){
+        return true;
+    }
+    return false;
+}
+
+bool operator!=( const Axe &axe_a,const Axe &axe_b){
+    if (axe_a.axename != axe_b.axename){
+        return true;
+    }
+    return false;
+}
+
+int operator!( const Axe &axe){
+    int level =1;
+    if(axe.level!=8){level = 8; }
+    return level;
+}
+
+void Axe::operator=(const Axe& axe){
+    this->level = axe.level;
+    this->rarity = axe.rarity;
+    this->base_damage = axe.base_damage;
+    this->number_projectiles = axe.number_projectiles;
+
+}
 
 // Métodos Static
 int Axe::getNumberAxes(){
@@ -43,6 +82,7 @@ Axe::Axe(int level):
         setBase_damage(base_damage);
         createMapBonus();
         setAxeBuffs();
+        myCandelabrador = new Candelabrador(level);
         previous_stage_bonusPtr = 0; 
         numbuffsPtr=0;
         numbuffs=5;
@@ -68,6 +108,7 @@ Axe::Axe(int level,   int rarity , double base_damage, int number_projectiles, s
         setBase_damage(base_damage);
         createMapBonus();
         setAxeBuffs();
+        myCandelabrador = new Candelabrador(level);
         previous_stage_bonusPtr = 0;    
         numbuffsPtr=0;
         numbuffs=5;
@@ -120,7 +161,7 @@ Axe::Axe (const Axe & another ):
         }
 
         previous_stage_bonusPtr = 0;
-
+        this-> myCandelabrador = another.myCandelabrador;
         createMapBonus();
         setAxeBuffs();    
            
@@ -136,7 +177,7 @@ Axe::~Axe( )
         
 
     //  deletando conteudo do ponteiro
-   
+    delete myCandelabrador;
     for (int i = 0; i<previous_stage_bonus.size(); i++)
         delete this->previous_stage_bonus[i];
     delete [] previous_stage_bonusPtr;
@@ -276,7 +317,7 @@ float Axe::calculate_damage(){
     float bonusprevious = 1;
     if(previous_stage_bonus.size()>0){
     bonusprevious += *previous_stage_bonusPtr;}
-    float final_damage = getBase_damage()*checkbonus()*(1+calculateBuffs())*bonusprevious;
+    float final_damage = (getBase_damage()*checkbonus()*(1+calculateBuffs())*bonusprevious*(this->myCandelabrador->get_element_bonus())) + (this->myCandelabrador->get_unique_bonus());
     return final_damage;
 
 }
@@ -584,13 +625,16 @@ void Axe::LastStageBuffs (int numbuffs) {
 
  }
 
+// [Atividade 5]
+// Métodos usando composição
 
-ostream &operator<<(ostream &out, const Axe &current ){
-    out<<"================================\n";
-    out<<"Mostrando Atributos do Machado: \n";
-    out<<"Dano base: " << current.base_damage<<'\n';
-    out<<"Nível: "<< current.level<<'\n';
-    out<<"Nome: "<< current.axename<<'\n';
-    return out;
-}
-
+    void Axe::set_candelabrador_unique(int level){
+        this-> myCandelabrador->set_unique(level);
+    }
+    
+    void Axe::set_candelabrador_element(string element){
+        this-> myCandelabrador->set_element(element);
+    }
+    void Axe::set_candelabrador_data(int d, int m, int a){
+        this-> myCandelabrador-> set_data(d , m, a);
+    }

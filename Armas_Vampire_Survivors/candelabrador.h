@@ -8,23 +8,23 @@ using std::string;
 using std::vector;
 #include <map>
 using std::map;
-#include "data.h"
+#include "Data.h"
 
 
 class Candelabrador
 {
+    // [Atividade 5]
     friend ostream &operator<<(ostream &, const Candelabrador &);
     friend bool operator==( const Candelabrador &,const Candelabrador &);
-    // friend Candelabrador &operator==( Candelabrador &,Candelabrador &);
     friend bool operator!=(const Candelabrador &,const Candelabrador &);
     friend int operator!( const Candelabrador &);
 
 
 public:
+    void operator=(const Candelabrador &);
     Candelabrador(int = 1);
     Candelabrador(string="Neutral");
     Candelabrador(const Candelabrador &);
-    void operator=(const Candelabrador &);
     ~Candelabrador();
 
 void set_unique(int);

@@ -8,11 +8,17 @@ using std::string;
 using std::vector;
 #include <map>
 using std::map;
+#include"candelabrador.h"
 
 class Axe
 {
+// [Atividade 5]
     friend ostream &operator<<(ostream &, const Axe &);
+    friend bool operator==( const Axe &,const Axe &);
+    friend bool operator!=( const Axe &,const Axe &);
+    friend int operator!( const Axe &);
 public:
+    void operator=(const Axe&);
     Axe (int=1);
     Axe (int , int ,double=20, int =1, string="no name");
 
@@ -83,10 +89,12 @@ public:
     void setAxeBuffs();
     void setNumBuffs(int);
 
+// [ATIVIDADE 5]
 
-
-
-
+    void set_candelabrador_unique(int);
+    void set_candelabrador_element(string);
+    void set_candelabrador_data(int, int, int);
+        
 private:
 
 //Atributos 
@@ -138,5 +146,8 @@ private:
 // [ATIVIDADE 4]
 // Método privado
     void AllocInBuffs(int); 
+
+// [ATIVIDADE 5]
+    Candelabrador* myCandelabrador;
 };
 #endif
