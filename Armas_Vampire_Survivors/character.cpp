@@ -23,17 +23,17 @@ ostream &operator<<(ostream &out, const Character &chara){
     return out;
 }
 
-bool operator==( const Character &chara_a,const Character &chara_b){
-    return chara_a.unique.level == chara_b.unique.level;
+bool Character::operator==( const Character &chara_b){
+    return this->unique.level == chara_b.unique.level;
 }
 
-bool operator!=( const Character &chara_a,const Character &chara_b){
-    return chara_a.unique.level != chara_b.unique.level;
+bool Character::operator!=( const Character &chara_b){
+    return this->unique.level != chara_b.unique.level;
 }
 
-int operator!( const Character &chara_a){
+int Character::operator!( ){
     int level=1;
-    if(chara_a.unique.level!=100){level=100;}
+    if(this->unique.level!=100){level=100;}
     return level;
 }
 

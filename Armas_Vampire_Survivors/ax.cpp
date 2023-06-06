@@ -22,44 +22,10 @@ const float Axe::FIXED_BONUS_DAMAGE[NUMGRADES] = {1.5,1.2,1,0.9};
 
 // [Atividade 5]
 // Sobrecargas
-ostream &operator<<(ostream &out, const Axe &current ){
-    out<<"================================\n";
-    out<<"Mostrando Atributos do Machado: \n";
-    out<<"Dano base: " << current.base_damage<<'\n';
-    out<<"Nível: "<< current.level<<'\n';
-    out<<"Nome: "<< current.axename<<'\n';
-    out<< *current.myCandelabrador;
-    return out;
-}
 
 
-bool operator==( const Axe &axe_a,const Axe &axe_b){
-    if (axe_a.axename == axe_b.axename){
-        return true;
-    }
-    return false;
-}
 
-bool operator!=( const Axe &axe_a,const Axe &axe_b){
-    if (axe_a.axename != axe_b.axename){
-        return true;
-    }
-    return false;
-}
 
-int operator!( const Axe &axe){
-    int level =1;
-    if(axe.level!=8){level = 8; }
-    return level;
-}
-
-void Axe::operator=(const Axe& axe){
-    this->level = axe.level;
-    this->rarity = axe.rarity;
-    this->base_damage = axe.base_damage;
-    this->number_projectiles = axe.number_projectiles;
-
-}
 
 // Métodos Static
 int Axe::getNumberAxes(){
@@ -194,8 +160,45 @@ Axe::~Axe( )
 
 }
 
+ostream &operator<<(ostream &out, const Axe &current ){
+    out<<"================================\n";
+    out<<"Mostrando Atributos do Machado: \n";
+    out<<"Dano base: " << current.base_damage<<'\n';
+    out<<"Nível: "<< current.level<<'\n';
+    out<<"Nome: "<< current.axename<<'\n';
+    out<< *current.myCandelabrador;
+    return out;
+}
 
 
+
+bool Axe::operator==( const Axe &axe_b){
+    if (this->axename == axe_b.axename){
+        return true;
+    }
+    return false;
+}
+
+bool Axe::operator!=( const Axe &axe_b){
+    if (this->axename != axe_b.axename){
+        return true;
+    }
+    return false;
+}
+
+int Axe::operator!( ){
+    int level =1;
+    if(this->level!=8){level = 8; }
+    return level;
+}
+
+void Axe::operator=(const Axe& axe){
+    this->level = axe.level;
+    this->rarity = axe.rarity;
+    this->base_damage = axe.base_damage;
+    this->number_projectiles = axe.number_projectiles;
+
+}
 // Throw Axe foi alterado para exibir o nome
 void Axe::throwAxe( ) const
 {

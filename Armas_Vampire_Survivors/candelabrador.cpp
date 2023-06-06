@@ -33,34 +33,7 @@ ostream &operator<<(ostream &out, const Candelabrador &cande){
 }
 
 
-bool operator==( const Candelabrador &cande_a,const Candelabrador &cande_b){
-   return cande_a.get_unique_level()==cande_b.get_unique_level()  && cande_a.get_element()==cande_b.get_element();
-    
-}
 
-bool operator!=( const Candelabrador &cande_a,const Candelabrador &cande_b){
-   return cande_a.get_unique_level()!=cande_b.get_unique_level()  || cande_a.get_element()!=cande_b.get_element();
-}
-
-
-
-int operator!( const Candelabrador &cande){
-    int lvl=1;   
-    if (cande.unique.level<8){
-        lvl=8;
-        return lvl;}
-    if(cande.unique.level==8){
-        return lvl;
-    }
-    return 0;
-}
-
-void Candelabrador::operator=( const Candelabrador &cande_b){
-
-    this->set_unique(cande_b.get_unique_level());
-    this->set_element(cande_b.get_element());
-
-}
 Candelabrador::Candelabrador(int level):type_element("Neutral"){
     set_unique(level);
     last_played_ptr = 0;
@@ -92,6 +65,35 @@ Candelabrador::~Candelabrador(){
         delete this -> dates[i];
 };
 
+
+bool Candelabrador::operator==( const Candelabrador &cande_b){
+   return this->unique.level==cande_b.get_unique_level()  && this->type_element ==cande_b.get_element();
+    
+}
+
+bool Candelabrador::operator!=( const Candelabrador &cande_b){
+   return this->unique.level != cande_b.get_unique_level()  || this->type_element != cande_b.get_element();
+}
+
+
+
+int Candelabrador::operator!( ){
+    int lvl=1;   
+    if (this->get_unique_level()<8){
+        lvl=8;
+        return lvl;}
+    if(this->get_unique_level()==8){
+        return lvl;
+    }
+    return 0;
+}
+
+void Candelabrador::operator=( const Candelabrador &cande_b){
+
+    this->set_unique(cande_b.get_unique_level());
+    this->set_element(cande_b.get_element());
+
+}
 void Candelabrador::set_unique(int level){
     if (level >= 1 && level <= 5){
         this -> unique.level = level;

@@ -15,11 +15,9 @@ class Axe
 {
 // [Atividade 5]
     friend ostream &operator<<(ostream &, const Axe &);
-    friend bool operator==( const Axe &,const Axe &);
-    friend bool operator!=( const Axe &,const Axe &);
-    friend int operator!( const Axe &);
+
 public:
-    void operator=(const Axe&);
+    
     Axe (int=1);
     Axe (int , int ,double=20, int =1, string="no name");
 
@@ -27,7 +25,10 @@ public:
     Axe (const Axe &);
     Character myCharacter;
     ~Axe();
-
+    void operator=(const Axe&);
+    bool operator==( const Axe &);
+    bool operator!=( const Axe &);
+    int operator!( );
 // Métodos Static
     static int getNumberAxes();
     static int getNumCopies();
