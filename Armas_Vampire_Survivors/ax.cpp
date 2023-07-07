@@ -57,7 +57,7 @@ Axe::Axe(int level):
         numberaxes++;
 // [Atividade 5]
 
-        myCandelabrador = new Candelabrador(level);
+        myCandelabrador = new Candelabrador(1);
         myCharacter = Character(1);
 
 

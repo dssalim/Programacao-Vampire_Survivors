@@ -17,6 +17,8 @@ public:
     const bool operator==(DeathScythe&);
     const bool operator!=(DeathScythe&);
     int operator!();
+    double get_final_bonus() const;
+    void simulate_battle_death(int);
 private:
     double final_bonus;
 };

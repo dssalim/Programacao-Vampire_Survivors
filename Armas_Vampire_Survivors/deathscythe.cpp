@@ -49,3 +49,22 @@ ostream &operator<<(ostream & out, const DeathScythe & other){
     out<< "Final Bonus " <<other.final_bonus<<'\n';
     return out;
 };
+
+double DeathScythe::get_final_bonus() const{
+    return final_bonus;
+};
+
+void DeathScythe::simulate_battle_death(int numdummies){
+
+    for (int i=0;i<numdummies;i++){
+        float temp_dummy= rand() % 50 + 600;
+        std::cout << "\nO hp do dummy  "<< i+1 <<" é de:"<<temp_dummy;
+        while(temp_dummy>0){ 
+            std::cout<<"\nDano causado ao dummy: "<< calculate_damage();
+            temp_dummy -= calculate_damage() + get_final_bonus();
+            if( temp_dummy>0){std::cout<<"\nHp atual do dummy: " << temp_dummy;}
+            if (temp_dummy==0){std::cout<<"\nHp atual do dummy: 0 ";}
+        }
+        std::cout << "\nDummy derrotado\n";
+    }
+}
